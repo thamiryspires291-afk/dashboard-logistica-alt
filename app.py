@@ -152,7 +152,21 @@ def performance():
             "estrelas": estrelas,
             "barra": round((float(nota) / 5) * 100, 1)
         })
+    ranking_atendentes = (
+        adm.sort_values("Percentual_Atendimento", ascending=False)
+        [["Atendente", "Percentual_Atendimento"]]
+        .head(10)
+        .to_dict("records")
+    )
 
+    ranking_placas = (
+        mobile.groupby("Placa_do_veiculo")["Total"]
+        .sum()
+        .reset_index()
+        .sort_values("Total", ascending=False)
+        .head(10)
+        .to_dict("records")
+    )
     grafico_mobile = px.bar(
         mobile,
         x="Placa_do_veiculo",
@@ -187,6 +201,8 @@ def performance():
         total_mobile=total_mobile,
         total_piloto=total_piloto,
         ranking_adm=ranking_adm,
+        ranking_atendentes=ranking_atendentes,
+        ranking_placas=ranking_placas,
         adm=adm.fillna("").to_dict(orient="records"),
         mobile=mobile.fillna("").to_dict(orient="records"),
         piloto=piloto.fillna("").to_dict(orient="records"),
