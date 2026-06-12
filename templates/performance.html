@@ -291,61 +291,54 @@ td{
 
 <form class="filtro" method="get" action="/performance">
     <input type="date" name="data" value="{{data_filtro}}">
-    <div class="grupo">
-
-<h2>📞 Ligações</h2>
-
-<div class="cards-linha">
-
-    <div class="card">
-        <h4>Ligações</h4>
-        <h2>{{ total_ligacoes }}</h2>
-    </div>
-
-    <div class="card">
-        <h4>Atendidas</h4>
-        <h2>{{ total_atendidas }}</h2>
-    </div>
-
-    <div class="card">
-        <h4>Não Atendidas</h4>
-        <h2 style="color:red;">
-            {{ total_nao_atendidas }}
-        </h2>
-    </div>
-
-</div>
-
-</div>
-
-<div class="grupo">
-
-<h2>📲 Sacflow</h2>
-
-<div class="cards-linha">
-
-    <div class="card">
-        <h4>Sacflow</h4>
-        <h2>{{ total_sacflow }}</h2>
-    </div>
-
-    <div class="card">
-        <h4>Atendimento</h4>
-        <h2>{{ total_atendimento }}</h2>
-    </div>
-
-    <div class="card">
-        <h4>Nota Média</h4>
-        <h2>⭐⭐⭐⭐⭐</h2>
-        <strong>{{ media_adm }}/5</strong>
-    </div>
-
-</div>
-
-</div>
-    <button>Filtrar</button>
+    <button type="submit">Filtrar</button>
 </form>
 
+<div class="painel-topo">
+
+    <div class="painel-card">
+        <h2>📞 Ligações</h2>
+
+        <div class="painel-numeros">
+            <div>
+                <span>Total</span>
+                <strong>{{ total_ligacoes }}</strong>
+            </div>
+
+            <div>
+                <span>Atendidas</span>
+                <strong>{{ total_atendidas }}</strong>
+            </div>
+
+            <div>
+                <span>Não Atendidas</span>
+                <strong class="vermelho">{{ total_nao_atendidas }}</strong>
+            </div>
+        </div>
+    </div>
+
+    <div class="painel-card">
+        <h2>📲 Sacflow</h2>
+
+        <div class="painel-numeros">
+            <div>
+                <span>Sacflow</span>
+                <strong>{{ total_sacflow }}</strong>
+            </div>
+
+            <div>
+                <span>Atendimento</span>
+                <strong>{{ total_atendimento }}</strong>
+            </div>
+
+            <div>
+                <span>Nota Média</span>
+                <strong>⭐ {{ media_adm }}/5</strong>
+            </div>
+        </div>
+    </div>
+
+</div>
 <div class="cards">
     <div class="card">
         <p>Média Atendimento ADM</p>
