@@ -241,6 +241,41 @@ td{
         grid-template-columns:1fr;
     }
 }
+    .grupo{
+    margin-bottom:25px;
+}
+
+.grupo h2{
+    color:#006b32;
+    margin-bottom:10px;
+}
+
+.cards-linha{
+    display:flex;
+    gap:15px;
+}
+
+.cards-linha .card{
+    flex:1;
+    background:white;
+    border-radius:12px;
+    padding:20px;
+    box-shadow:0 3px 10px rgba(0,0,0,.15);
+}
+
+.cards-linha .card h4{
+    color:#666;
+    margin:0;
+}
+
+.cards-linha .card h2{
+    color:#006b32;
+    margin-top:10px;
+}
+
+.card-verde h2{
+    color:#d32f2f;
+}
 </style>
 </head>
 
@@ -256,6 +291,58 @@ td{
 
 <form class="filtro" method="get" action="/performance">
     <input type="date" name="data" value="{{data_filtro}}">
+    <div class="grupo">
+
+<h2>📞 Ligações</h2>
+
+<div class="cards-linha">
+
+    <div class="card">
+        <h4>Ligações</h4>
+        <h2>{{ total_ligacoes }}</h2>
+    </div>
+
+    <div class="card">
+        <h4>Atendidas</h4>
+        <h2>{{ total_atendidas }}</h2>
+    </div>
+
+    <div class="card">
+        <h4>Não Atendidas</h4>
+        <h2 style="color:red;">
+            {{ total_nao_atendidas }}
+        </h2>
+    </div>
+
+</div>
+
+</div>
+
+<div class="grupo">
+
+<h2>📲 Sacflow</h2>
+
+<div class="cards-linha">
+
+    <div class="card">
+        <h4>Sacflow</h4>
+        <h2>{{ total_sacflow }}</h2>
+    </div>
+
+    <div class="card">
+        <h4>Atendimento</h4>
+        <h2>{{ total_atendimento }}</h2>
+    </div>
+
+    <div class="card">
+        <h4>Nota Média</h4>
+        <h2>⭐⭐⭐⭐⭐</h2>
+        <strong>{{ media_adm }}/5</strong>
+    </div>
+
+</div>
+
+</div>
     <button>Filtrar</button>
 </form>
 
