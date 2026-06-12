@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Dashboard ATL Brasil</title>
+<meta http-equiv="refresh" content="10">
+
+<style>
+*{ box-sizing:border-box; }
+
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#111;
+}
+
+.faixa{
+    background:
+    linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,.55)),
+    url("/static/fundo.jpg");
+    background-size:cover;
+    background-position:center;
+    min-height:100vh;
+    padding:24px;
+}
+
+.container{
+    max-width:1250px;
+    margin:0 auto;
+}
+
+.topo{
+    display:flex;
+    align-items:center;
+    gap:25px;
+    margin-bottom:25px;
+}
+
+.logo{
+    background:white;
+    width:190px;
+    height:80px;
+    border-radius:10px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.logo img{
+    max-width:165px;
+    max-height:65px;
+}
+
+h1{
+    color:white;
+    font-size:38px;
+    margin:0;
+}
+
+.area-filtro{
+    display:flex;
+    gap:12px;
+    align-items:center;
+    flex-wrap:wrap;
+    margin-bottom:22px;
+}
+
+.filtro{
+    display:flex;
+    gap:10px;
+    align-items:center;
+    background:white;
+    padding:10px;
+    border-radius:12px;
+}
+
+.filtro label{
+    font-weight:bold;
+    color:#078b2c;
+}
+
+input{
+    padding:12px;
+    border:1px solid #ddd;
+    border-radius:8px;
+}
+
+button, .botao-dados, .botao-salvar, .botao-performance{
+    color:white;
+    padding:13px 24px;
+    border:none;
+    border-radius:10px;
+    font-weight:bold;
+    cursor:pointer;
+    text-decoration:none;
+    font-size:15px;
+}
+
+button{
+    background:#16a339;
+}
+
+.botao-dados{
+    background:#f47b20;
+}
+
+.botao-salvar{
+    background:#0056d6;
+}
+
+.botao-performance{
+    background:#7b2cff;
+}
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:14px;
+}
+
+.card{
+    background:white;
+    padding:16px 20px;
+    border-radius:14px;
+    min-height:95px;
+}
+
+.card p{
+    margin:0 0 8px;
+    font-size:14px;
+    font-weight:bold;
+}
+
+.numero{
+    color:#078b2c;
+    font-size:34px;
+    font-weight:bold;
+}
+
+.linha{
+    width:26px;
+    height:4px;
+    background:#16a339;
+    margin-top:6px;
+}
+
+.grafico{
+    background:white;
+    margin:24px auto 0;
+    padding:18px;
+    border-radius:16px;
+    max-width:1100px;
+    overflow:auto;
+}
+
+@media(max-width:900px){
+    .topo{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .cards{
+        grid-template-columns:1fr 1fr;
+    }
+}
+
+@media(max-width:600px){
+    .cards{
+        grid-template-columns:1fr;
+    }
+
+    .filtro{
+        flex-direction:column;
+        align-items:stretch;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="faixa">
+<div class="container">
+
+<div class="topo">
+    <div class="logo">
+        <img src="/static/logo.png">
+    </div>
+
+    <h1>🚛 Dashboard Logístico</h1>
+</div>
+
+<div class="area-filtro">
+
+    <form class="filtro" method="get" action="/">
+        <label>Data:</label>
+        <input type="date" name="data" value="{{data_filtro}}">
+        <button>Filtrar</button>
+    </form>
+
+    <a href="/dados?data={{data_filtro}}" target="_blank" class="botao-dados">
+        Ver Dados
+    </a>
+
+    <a href="/performance?data={{data_filtro}}" target="_blank" class="botao-performance">
+        Performance ADM
+    </a>
+
+    <a href="/salvar_dia" class="botao-salvar">
+        Salvar Dia
+    </a>
+
+</div>
+
+<div class="cards">
+
+<div class="card">
+    <p>Veículos</p>
+    <div class="numero">{{veiculos_rota}}</div>
+    <div class="linha"></div>
+</div>
+
+<div class="card">
+    <p>Comandada</p>
+    <div class="numero">{{total_comandada}}</div>
+    <div class="linha"></div>
+</div>
+
+<div class="card">
+    <p>Coletada</p>
+    <div class="numero">{{total_coletada}}</div>
+    <div class="linha"></div>
+</div>
+
+<div class="card">
+    <p>Total</p>
+    <div class="numero">{{total_geral}}</div>
+    <div class="linha"></div>
+</div>
+
+<div class="card">
+    <p>Ajudante ALT</p>
+    <div class="numero">{{ajudante_alt}}</div>
+    <div class="linha"></div>
+</div>
+
+<div class="card">
+    <p>Ajudante SK</p>
+    <div class="numero">{{ajudante_sk}}</div>
+    <div class="linha"></div>
+</div>
+
+<div class="card">
+    <p>Faltas</p>
+    <div class="numero">{{faltas}}</div>
+    <div class="linha"></div>
+</div>
+
+</div>
+
+<div class="grafico">
+    {{grafico1|safe}}
+</div>
+
+</div>
+</div>
+
+</body>
+</html>

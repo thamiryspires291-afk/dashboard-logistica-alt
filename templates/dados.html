@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Dados Operacionais</title>
+<meta http-equiv="refresh" content="10">
+
+<style>
+body{
+    font-family:Arial;
+    background:#ececec;
+    padding:30px;
+}
+
+h1{
+    color:#16a339;
+}
+
+.botao{
+    background:#16a339;
+    color:white;
+    padding:12px 20px;
+    border-radius:8px;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    background:white;
+    margin-top:25px;
+}
+
+th{
+    background:#16a339;
+    color:white;
+    padding:12px;
+}
+
+td{
+    padding:10px;
+    border-bottom:1px solid #ddd;
+    text-align:center;
+}
+</style>
+</head>
+
+<body>
+
+<a href="/?data={{data_filtro}}" class="botao">← Voltar Dashboard</a>
+
+<h1>Dados Operacionais</h1>
+
+<table>
+<tr>
+    <th>Data</th>
+    <th>Placa</th>
+    <th>Em_Rota</th>
+    <th>Comandada</th>
+    <th>Coletada</th>
+    <th>Total</th>
+    <th>Ajudante ALT</th>
+    <th>Ajudante SK</th>
+    <th>Faltas</th>
+</tr>
+
+{% for linha in tabela %}
+<tr>
+    <td>{{linha["Data"].strftime("%d/%m/%Y")}}</td>
+    <td>{{linha["Placa_do_veiculo"]}}</td>
+    <td>{{linha["Em_Rota"]}}</td>
+    <td>{{linha["Comandada"]}}</td>
+    <td>{{linha["Coletada"]}}</td>
+    <td>{{linha["Total"]}}</td>
+    <td>{{linha["Ajudante_ALT"]}}</td>
+    <td>{{linha["Ajudante_SK"]}}</td>
+    <td>{{linha["Faltas"]}}</td>
+</tr>
+{% endfor %}
+
+</table>
+
+</body>
+</html>

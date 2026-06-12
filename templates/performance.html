@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Performance ADM</title>
+<meta http-equiv="refresh" content="10">
+
+<style>
+*{box-sizing:border-box;}
+
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:
+    linear-gradient(rgba(255,255,255,.72),rgba(255,255,255,.72)),
+    url("/static/fundo.jpg");
+    background-size:cover;
+    background-position:center;
+    background-attachment:fixed;
+    padding:18px;
+}
+
+.container{
+    max-width:1450px;
+    margin:0 auto;
+}
+
+.menu a{
+    background:#006b32;
+    color:white;
+    padding:10px 18px;
+    border-radius:8px;
+    text-decoration:none;
+    font-weight:bold;
+    margin-right:8px;
+}
+
+h1{
+    color:#006b32;
+    font-size:34px;
+}
+
+.filtro{
+    background:white;
+    display:inline-flex;
+    gap:10px;
+    padding:10px;
+    border-radius:12px;
+    margin-bottom:20px;
+}
+
+input,button{
+    padding:11px;
+    border-radius:8px;
+    border:1px solid #ccc;
+}
+
+button{
+    background:#006b32;
+    color:white;
+    border:none;
+    font-weight:bold;
+}
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:14px;
+    margin-bottom:18px;
+}
+
+.card{
+    background:white;
+    padding:20px;
+    border-radius:16px;
+    border-left:6px solid #006b32;
+    box-shadow:0 4px 15px rgba(0,0,0,.16);
+    min-height:115px;
+}
+
+.card-alerta{
+    border-left-color:#d93025;
+}
+
+.card-alerta .numero{
+    color:#d93025;
+}
+
+.card p{
+    font-weight:bold;
+    margin:0 0 8px;
+}
+
+.numero{
+    font-size:36px;
+    color:#006b32;
+    font-weight:bold;
+}
+
+.estrelas{
+    font-size:24px;
+    color:#f4b400;
+}
+
+.graficos{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:16px;
+    margin-bottom:18px;
+}
+
+.grafico{
+    background:white;
+    padding:18px;
+    border-radius:16px;
+    box-shadow:0 4px 15px rgba(0,0,0,.16);
+    min-height:330px;
+    overflow:hidden;
+}
+
+.performance-box h2{
+    color:#111;
+    font-size:20px;
+    margin-top:0;
+}
+
+.tabela-performance{
+    width:100%;
+    border-collapse:collapse;
+}
+
+.tabela-performance th{
+    background:white;
+    color:#111;
+    font-size:13px;
+    border-bottom:2px solid #eee;
+}
+
+.tabela-performance td{
+    padding:10px;
+    border-bottom:1px solid #eee;
+    font-size:13px;
+    text-align:center;
+}
+
+.barra-nota{
+    width:100%;
+    height:16px;
+    background:#e8f2ea;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.barra-nota span{
+    display:block;
+    height:100%;
+    background:#006b32;
+}
+
+.estrelas-linha{
+    color:#f4b400;
+    font-size:16px;
+    white-space:nowrap;
+}
+
+.tabelas{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:16px;
+}
+
+.bloco-tabela{
+    background:white;
+    padding:14px;
+    border-radius:14px;
+    box-shadow:0 4px 15px rgba(0,0,0,.16);
+    max-height:360px;
+    overflow:auto;
+}
+
+h2{
+    color:#006b32;
+    margin-top:0;
+    font-size:18px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th{
+    background:#006b32;
+    color:white;
+    padding:8px;
+    font-size:12px;
+}
+
+td{
+    padding:7px;
+    border-bottom:1px solid #ddd;
+    text-align:center;
+    font-size:12px;
+}
+
+@media(max-width:1100px){
+    .cards,.graficos,.tabelas{
+        grid-template-columns:1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<div class="menu">
+    <a href="/">Dashboard Logístico</a>
+    <a href="/performance">Performance ADM</a>
+</div>
+
+<h1>📊 Performance ADM</h1>
+
+<form class="filtro" method="get" action="/performance">
+    <input type="date" name="data" value="{{data_filtro}}">
+    <button>Filtrar</button>
+</form>
+
+<div class="cards">
+    <div class="card">
+        <p>Média Atendimento ADM</p>
+        <div class="estrelas">⭐⭐⭐⭐⭐</div>
+        <div class="numero">{{media_adm}} / 5</div>
+    </div>
+
+    <div class="card">
+        <p>Ligações</p>
+        <div class="numero">{{total_ligacoes}}</div>
+    </div>
+
+    <div class="card">
+        <p>Atendidas</p>
+        <div class="numero">{{total_atendidas}}</div>
+    </div>
+
+    <div class="card card-alerta">
+        <p>Não Atendidas</p>
+        <div class="numero">{{total_nao_atendidas}}</div>
+    </div>
+
+    <div class="card">
+        <p>Baixa Mobile Total</p>
+        <div class="numero">{{total_mobile}}</div>
+    </div>
+
+    <div class="card">
+        <p>Baixa Piloto Total</p>
+        <div class="numero">{{total_piloto}}</div>
+    </div>
+</div>
+
+<div class="graficos">
+
+<div class="grafico performance-box">
+<h2>Performance Atendimento ADM</h2>
+
+<table class="tabela-performance">
+<tr>
+    <th>Atendente</th>
+    <th>Atendidas</th>
+    <th>Barra</th>
+    <th>Nota / 5</th>
+    <th>Média</th>
+</tr>
+
+{% for pessoa in ranking_adm %}
+<tr>
+    <td>{{pessoa.nome}}</td>
+    <td>{{pessoa.atendidas}}</td>
+    <td>
+        <div class="barra-nota">
+            <span style="width:{{pessoa.barra}}%"></span>
+        </div>
+    </td>
+    <td>{{pessoa.nota}}</td>
+    <td class="estrelas-linha">
+        {% for i in range(pessoa.estrelas) %}⭐{% endfor %}
+    </td>
+</tr>
+{% endfor %}
+</table>
+
+</div>
+
+<div class="grafico">
+    {{grafico_mobile|safe}}
+</div>
+
+<div class="grafico">
+    {{grafico_piloto|safe}}
+</div>
+
+</div>
+
+<div class="tabelas">
+
+<div class="bloco-tabela">
+<h2>Atendimento ADM</h2>
+<table>
+<tr>
+<th>Data</th><th>Atendente</th><th>Ligações</th><th>Atendidas</th><th>Não</th><th>Nota</th>
+</tr>
+{% for linha in adm %}
+<tr>
+<td>{% if linha["Data"] %}{{linha["Data"].strftime("%d/%m/%Y")}}{% else %}-{% endif %}</td>
+<td>{{linha["Atendente"]}}</td>
+<td>{{linha["Ligacoes"]}}</td>
+<td>{{linha["Atendidas"]}}</td>
+<td>{{linha["Nao_Atendidas"]}}</td>
+<td>{{linha["Percentual_Atendimento"]}}</td>
+</tr>
+{% endfor %}
+</table>
+</div>
+
+<div class="bloco-tabela">
+<h2>Baixa Mobile</h2>
+<table>
+<tr>
+<th>Data</th><th>Placa</th><th>Coletada</th><th>Baixada</th><th>Total</th>
+</tr>
+{% for linha in mobile %}
+<tr>
+<td>{% if linha["Data"] %}{{linha["Data"].strftime("%d/%m/%Y")}}{% else %}-{% endif %}</td>
+<td>{{linha["Placa_do_veiculo"]}}</td>
+<td>{{linha["Coletada"]}}</td>
+<td>{{linha["Baixada"]}}</td>
+<td>{{linha["Total"]}}</td>
+</tr>
+{% endfor %}
+</table>
+</div>
+
+<div class="bloco-tabela">
+<h2>Baixa Piloto</h2>
+<table>
+<tr>
+<th>Data</th><th>Atendente</th><th>Coletada</th><th>Cancelada</th><th>Comandada</th><th>Total</th>
+</tr>
+{% for linha in piloto %}
+<tr>
+<td>{% if linha["Data"] %}{{linha["Data"].strftime("%d/%m/%Y")}}{% else %}-{% endif %}</td>
+<td>{{linha["Atendente"]}}</td>
+<td>{{linha["Coletada"]}}</td>
+<td>{{linha["Cancelada"]}}</td>
+<td>{{linha["Comandada"]}}</td>
+<td>{{linha["Total"]}}</td>
+</tr>
+{% endfor %}
+</table>
+</div>
+
+</div>
+
+</div>
+</body>
+</html>
