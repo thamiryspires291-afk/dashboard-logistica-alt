@@ -201,7 +201,41 @@ td{
     text-align:center;
     font-size:12px;
 }
+.rankings{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+    margin-bottom:18px;
+}
 
+.card-ranking{
+    background:white;
+    border-radius:14px;
+    padding:16px;
+    box-shadow:0 4px 15px rgba(0,0,0,.16);
+}
+
+.card-ranking h2{
+    color:#006b32;
+    margin-top:0;
+}
+
+.card-ranking table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+.card-ranking th{
+    background:#006b32;
+    color:white;
+    padding:9px;
+}
+
+.card-ranking td{
+    padding:9px;
+    border-bottom:1px solid #ddd;
+    text-align:center;
+}
 @media(max-width:1100px){
     .cards,.graficos,.tabelas{
         grid-template-columns:1fr;
@@ -257,7 +291,61 @@ td{
         <div class="numero">{{total_piloto}}</div>
     </div>
 </div>
+<div class="rankings">
 
+<div class="card-ranking">
+<h2>🏆 Ranking das Atendentes</h2>
+
+<table>
+<tr>
+    <th>Posição</th>
+    <th>Atendente</th>
+    <th>Nota</th>
+</tr>
+
+{% for item in ranking_atendentes %}
+<tr>
+    <td>
+        {% if loop.index == 1 %}🥇
+        {% elif loop.index == 2 %}🥈
+        {% elif loop.index == 3 %}🥉
+        {% else %}{{loop.index}}º
+        {% endif %}
+    </td>
+    <td>{{item.Atendente}}</td>
+    <td>⭐ {{item.Percentual_Atendimento}}</td>
+</tr>
+{% endfor %}
+</table>
+</div>
+
+<div class="card-ranking">
+<h2>🚚 Ranking das Placas</h2>
+
+<table>
+<tr>
+    <th>Posição</th>
+    <th>Placa</th>
+    <th>Total</th>
+</tr>
+
+{% for item in ranking_placas %}
+<tr>
+    <td>
+        {% if loop.index == 1 %}🥇
+        {% elif loop.index == 2 %}🥈
+        {% elif loop.index == 3 %}🥉
+        {% else %}{{loop.index}}º
+        {% endif %}
+    </td>
+    <td>{{item.Placa_do_veiculo}}</td>
+    <td>{{item.Total}}</td>
+</tr>
+{% endfor %}
+</table>
+</div>
+
+</div>
 <div class="graficos">
 
 <div class="grafico performance-box">
