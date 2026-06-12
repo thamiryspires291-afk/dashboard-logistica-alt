@@ -77,8 +77,13 @@ def dashboard():
         plot_bgcolor="white",
         paper_bgcolor="white"
     )
+total_sacflow = adm["Sacflow"].sum()
 
+total_atendimento = adm["Atendimento"].sum()
     return render_template(
+        total_sacflow=total_sacflow,
+
+total_atendimento=total_atendimento,
         "index.html",
         veiculos_rota=veiculos_rota,
         total_comandada=total_comandada,
