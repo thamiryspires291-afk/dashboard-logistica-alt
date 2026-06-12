@@ -195,4 +195,5 @@ def performance():
         data_filtro=data if data else ""
     )
 
-app.run(debug=True, use_reloader=False)
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000, debug=True)
